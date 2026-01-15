@@ -1,16 +1,40 @@
 // Section 01: Import dependencies
 import express from "express";
+import cors from "cors";
+import { env } from "./config/envValidator.js";
+import userRouter from "./routes/userRouter.js";
+import connectToMongoDB from "./config/connectToMongoDB.js";
 
-// Section 02: Create express app
+// Section 02: Create the express app
 const app = express();
 
-// Section 03: Configure middleware
 
-// Section 05: Connenct with the MongoDB
+// Section 04: Configure middlewares
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5000",
+      "http://localhost:3000",
+      "https://www.domain_name",
+      "https://project_name-nu.vercel.app",
+    ],
+    credentials: true,
+  })
+);
+app.use(express.json());
 
-// Section 05: Define routes
+// Section 05: Connect backend to mongoDB
+connectToMongoDB();
 
-// Section 06: Start the server
-app.listen(3000, () => {
-  console.log("Surver is running!");
+// Section 06: Define routes
+app.get("/", (req, res) => {
+  res.send("Welcome to the Quantara Global Backend!");
+});
+app.use("/api/users/", userRouter);
+
+// Section 07: Start the server
+const PORT = env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${env.PORT}`);
 });
