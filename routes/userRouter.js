@@ -3,6 +3,7 @@ import {
   createUser,
   deleteUser,
   loginUser,
+  sendMessageByCustomer,
   updateUser,
 } from "../controllers/userController.js";
 
@@ -12,5 +13,6 @@ userRouter.post("/", createUser);
 userRouter.post("/login", loginUser);
 userRouter.delete("/", deleteUser);
 userRouter.put("/", updateUser);
+userRouter.post("/send-message", sendMessageByCustomer);
 
 export default userRouter;
