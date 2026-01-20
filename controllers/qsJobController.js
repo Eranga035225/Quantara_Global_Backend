@@ -1,5 +1,8 @@
 import QsJob from "../models/qsJob.js";
-import { sendEmailWorkDoneQS } from "./userController.js";
+import {
+  sendEmailJobApprovedQS,
+  sendEmailWorkDoneQS,
+} from "./userController.js";
 
 export async function createQsJob(req, res) {
   try {
@@ -59,6 +62,10 @@ export async function updateQsJobStatus(req, res) {
 
     if (!updatedQsJob) {
       return res.status(404).json({ error: "QS job not found." });
+    }
+
+    if (status === "approved") {
+      await sendEmailJobApprovedQS(updatedQsJob);
     }
 
     if (status === "done") {

@@ -1,5 +1,8 @@
 import ItJob from "../models/itJob.js";
-import { sendEmailWorkDoneIT } from "./userController.js";
+import {
+  sendEmailJobApprovedIT,
+  sendEmailWorkDoneIT,
+} from "./userController.js";
 
 export async function createItJob(req, res) {
   try {
@@ -60,6 +63,10 @@ export async function updateItJobStatus(req, res) {
 
     if (!updatedItJob) {
       return res.status(404).json({ message: "IT job not found." });
+    }
+
+    if (status === "approved") {
+      await sendEmailJobApprovedIT(updatedItJob);
     }
 
     if (status === "done") {

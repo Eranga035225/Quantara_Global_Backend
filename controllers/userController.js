@@ -317,3 +317,103 @@ export async function sendEmailWorkDoneQS(job) {
     res.json({ message: "Message sent successfully" });
   });
 }
+
+export async function sendEmailJobApprovedQS(job) {
+  const mailOptions = {
+    from: "vishishtadilsara2002@gmail.com",
+    to: job.email,
+    subject: "Your QS Job Has Been Approved",
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; background: #f7f7fc;">
+        <div style="max-width: 600px; margin: auto; background: #fff; padding: 25px;
+                    border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+
+          <h2 style="color: #2563EB; text-align: center;">✔️ Job Approved</h2>
+
+          <p>Hello <strong>${job.name}</strong>,</p>
+
+          <p>
+            We’re pleased to inform you that your QS job has been <strong>reviewed and approved</strong>.
+            Our team will proceed with the next steps shortly.
+          </p>
+
+          <div style="margin-top: 15px;">
+            <p><strong>Job ID:</strong> ${job._id}</p>
+            <p><strong>Service:</strong> ${job.jobCategory}</p>
+          </div>
+
+          <p style="margin-top: 20px;">
+            If you have any additional details to share or questions regarding this job,
+            feel free to contact us.
+          </p>
+
+          <p style="margin-top: 30px;">
+            Best regards,<br />
+            <strong>Quontara Global</strong>
+          </p>
+
+          <p style="font-size: 12px; color: #777; text-align: center; margin-top: 30px;">
+            This is an automated message. Please do not reply with sensitive information.
+          </p>
+        </div>
+      </div>
+    `,
+  };
+
+  transport.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).json({ message: "Error sending message", error });
+    }
+    res.json({ message: "Approval email sent successfully" });
+  });
+}
+
+export async function sendEmailJobApprovedIT(job) {
+  const mailOptions = {
+    from: "vishishtadilsara2002@gmail.com",
+    to: job.email,
+    subject: "Your IT Job Has Been Approved",
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; background: #f7f7fc;">
+        <div style="max-width: 600px; margin: auto; background: #fff; padding: 25px;
+                    border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+
+          <h2 style="color: #2563EB; text-align: center;">✔️ Job Approved</h2>
+
+          <p>Hello <strong>${job.name}</strong>,</p>
+
+          <p>
+            We’re pleased to inform you that your QS job has been <strong>reviewed and approved</strong>.
+            Our team will proceed with the next steps shortly.
+          </p>
+
+          <div style="margin-top: 15px;">
+            <p><strong>Job ID:</strong> ${job._id}</p>
+            <p><strong>Service:</strong> ${job.itSolutionType}</p>
+          </div>
+
+          <p style="margin-top: 20px;">
+            If you have any additional details to share or questions regarding this job,
+            feel free to contact us.
+          </p>
+
+          <p style="margin-top: 30px;">
+            Best regards,<br />
+            <strong>Quontara Global</strong>
+          </p>
+
+          <p style="font-size: 12px; color: #777; text-align: center; margin-top: 30px;">
+            This is an automated message. Please do not reply with sensitive information.
+          </p>
+        </div>
+      </div>
+    `,
+  };
+
+  transport.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).json({ message: "Error sending message", error });
+    }
+    res.json({ message: "Approval email sent successfully" });
+  });
+}
